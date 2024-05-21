@@ -15,10 +15,10 @@ export const Header = () => {
         <nav className="flex" >
           <ul className="flex gap-10 flex-1 items-center justify-end list-none">
             <NavBarItem label="Главная" href={"/"}/>
-            <NavBarItem label="О мастерской" href={"/"}/>
-            <NavBarItem label="Расписание" href={"/"}/>
-            <NavBarItem label="Контакты" href={"/"}/>
-            <NavBarItem label="Аренда" href={"/"}/>
+            <NavBarItem label="О мастерской" href={"/about"}/>
+            <NavBarItem label="Расписание" href={"/schedule"}/>
+            <NavBarItem label="Контакты" href={"/contacts"}/>
+            <NavBarItem label="Аренда" href={"/rent"}/>
           </ul>
         </nav>
     </header>

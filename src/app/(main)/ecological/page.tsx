@@ -1,6 +1,6 @@
 const Eco = () => {
   return(
-    <div>eco</div>
+    <article>eco</article>
   )
 };
 

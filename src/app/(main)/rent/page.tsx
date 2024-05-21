@@ -1,6 +1,6 @@
 const Rent = () => {
   return(
-    <div>rent</div>
+    <article>rent</article>
   )
 };
 

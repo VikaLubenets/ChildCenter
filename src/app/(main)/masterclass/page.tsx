@@ -1,6 +1,6 @@
 const MasterClass = () => {
   return(
-    <div>master class</div>
+    <article>master class</article>
   )
 };
 
