@@ -21,4 +21,32 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+  
+  .max-container {
+    @apply max-w-5xl mx-auto sm:p-16 pb-12 !pt-[126px] px-8 min-h-[calc(100vh-80px)];
+  }
+
+  .subtitle-header {
+    @apply lg:text-3xl text-2xl font-extrabold;
+  }
+
+  .article{
+    @apply flex flex-col h-full w-full gap-10;
+  }
+
+  .btn {
+    @apply text-white bg-gradient-to-r from-[#00c6ff] to-[#0072ff] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center;
+  }
+  
+  .neo-btn {
+    @apply py-3 px-6 rounded-lg text-blue-500 text-center font-semibold sm:w-1/2 w-[90%] -bottom-5 absolute mx-auto right-0 left-0 flex justify-center items-center gap-3;
+  }
+
+  .cta {
+    @apply flex items-center md:flex-row flex-col sm:mt-16 mt-8 gap-7 w-[95%];
+  }
+
+  .cta-text {
+    @apply text-black font-extrabold flex-1 text-xl max-md:text-center;
+  }
 }

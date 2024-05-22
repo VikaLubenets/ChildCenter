@@ -14,7 +14,7 @@ export const NavBarItem = ({
 
   return (
     <li className="justify-start list-none">
-      <Link href={href} className="flex items-center justify-center text-black">
+      <Link href={href} className="flex items-center justify-center text-black hover:text-[#D08D85] active:text-green-500">
         {label}
       </Link>
     </li>
