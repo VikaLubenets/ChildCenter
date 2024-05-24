@@ -4,6 +4,8 @@ const serviceSchema = new Schema(
   {
     title: String,
     description: String,
+    srcImage: String,
+    link: String,
   },
   {
     timestamps: true,

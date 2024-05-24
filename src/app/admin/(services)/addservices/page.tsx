@@ -7,18 +7,20 @@ import { useRouter } from "next/navigation";
 export default function AddServices(){
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [srcImage, setSrcImage] = useState("");
+  const [link, setLink] = useState("");
 
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
-    if (!title || !description) {
-      alert("Title and description are required.");
+    if (!title || !description || !srcImage || !link) {
+      alert("All fields are required.");
       return;
     }
 
-    const res = await addService({title, description})
+    const res = await addService({title, description, srcImage, link})
 
     if (res) {
       router.push("/admin");
@@ -42,6 +44,20 @@ export default function AddServices(){
         className="border border-slate-500 px-8 py-2"
         type='text'
         placeholder='Описание услуги'
+      />
+      <input 
+        onChange={(e) => setSrcImage(e.target.value)}
+        value={srcImage}
+        className="border border-slate-500 px-8 py-2"
+        type='text'
+        placeholder='Ссылка на обложку'
+      />
+      <input 
+        onChange={(e) => setLink(e.target.value)}
+        value={link}
+        className="border border-slate-500 px-8 py-2"
+        type='text'
+        placeholder='Ссылка на страницу'
       />
       <button
         type="submit"

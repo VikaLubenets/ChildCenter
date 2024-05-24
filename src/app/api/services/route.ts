@@ -3,9 +3,9 @@ import Service from "@/store/schemas/serviceSchema";
 import { NextResponse, NextRequest } from "next/server";
 
 export async function POST(request: NextRequest) {
-  const { title, description } = await request.json();
+  const { title, description, srcImage, link } = await request.json();
   await connectMongoDB();
-  await Service.create({ title, description });
+  await Service.create({ title, description, srcImage, link });
   return NextResponse.json({ message: 'Service created' }, { status: 201 })
 }
 

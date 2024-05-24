@@ -37,11 +37,11 @@ export default function EditServices({ params }: Params) {
     return <div>Service not found</div>;
   }
 
-  const { title, description } = service;
+  const { title, description, srcImage } = service;
 
   return (
     <div>
-      <EditForm id={id} title={title} description={description} />
+      <EditForm id={id} title={title} description={description} srcImage={srcImage} />
     </div>
   );
 }

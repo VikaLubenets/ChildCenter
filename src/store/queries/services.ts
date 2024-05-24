@@ -17,8 +17,9 @@ export const getServices = cache(async (): Promise<ServicesResponse | null> => {
   }
 });
 
-export const addService = cache(async (params: Service): Promise<Response | null> => {
+export const addService = async (params: Service): Promise<Response | null> => {
   try{
+    console.log(params)
     const res = await fetch('/api/services', {
       method: "POST",
       headers: {
@@ -26,7 +27,9 @@ export const addService = cache(async (params: Service): Promise<Response | null
       },
       body: JSON.stringify({
         title: params.title, 
-        description: params.description
+        description: params.description,
+        srcImage: params.srcImage,
+        link: params.link
       }),
     });
     
@@ -35,7 +38,7 @@ export const addService = cache(async (params: Service): Promise<Response | null
     console.error("Error adding service:", err);
     return null;
   }
-});
+};
 
 export const getServiceById = cache(async (id: string): Promise<{ service: Service } | null> => {
   try {
@@ -58,7 +61,11 @@ export const updateService = cache(async (params: ServiceUpdated): Promise<{ ser
       headers: {
         "Content-type": "application/json",
       },
-      body: JSON.stringify({ newTitle: params.newTitle, newDescription: params.newDescription }),
+      body: JSON.stringify({ 
+        newTitle: params.newTitle, 
+        newDescription: params.newDescription,
+        newSrcImage: params.newSrcImage
+      }),
     });
     if (!response.ok) {
       throw new Error("Failed to update service");

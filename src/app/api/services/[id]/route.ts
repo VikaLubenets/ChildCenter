@@ -10,9 +10,9 @@ interface Params {
 
 export async function PUT(request: NextRequest, { params }: Params) {
   const { id } = params;
-  const { newTitle: title, newDescription: description } = await request.json();
+  const { newTitle: title, newDescription: description, newSrcImage: srcImage } = await request.json();
   await connectMongoDB();
-  await Service.findByIdAndUpdate(id, { title, description });
+  await Service.findByIdAndUpdate(id, { title, description, srcImage });
   return NextResponse.json({ message: 'Service updated' }, { status: 200 })
 }
 
