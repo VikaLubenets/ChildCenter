@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { useEffect, useState } from "react";
 import { Service } from "@/constants/DBTypes";
 import { getServices } from "@/store/queries/services";
+import Loader from "@/components/Loader/Loader";
 
 export const Pannel = () => {
   const [services, setServices] = useState<Service[]>([]);
@@ -23,7 +24,7 @@ export const Pannel = () => {
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <Loader />;
   }
 
   return (

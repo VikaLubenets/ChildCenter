@@ -1,9 +1,10 @@
 'use client'
 
-import { getServiceById } from "@/store/queries/services";
+import { getServiceById, updateService } from "@/store/queries/services";
 import { Service } from "@/constants/DBTypes";
-import EditForm from "../EditForm";
+import AdminForm from "@/components/AdminForm";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 interface Params {
   params: {
@@ -16,6 +17,7 @@ export default function EditServices({ params }: Params) {
 
   const [service, setService] = useState<Service | null>(null);
   const [loading, setLoading] = useState(true);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchService = async () => {
@@ -39,9 +41,20 @@ export default function EditServices({ params }: Params) {
 
   const { title, description, srcImage } = service;
 
-  return (
-    <div>
-      <EditForm id={id} title={title} description={description} srcImage={srcImage} />
-    </div>
-  );
+  const fields = [
+    { name: "title", type: "text", placeholder: "Название услуги", value: title },
+    { name: "description", type: "text", placeholder: "Описание услуги", value: description },
+    { name: "srcImage", type: "text", placeholder: "Ссылка на обложку", value: srcImage },
+  ];
+
+  const handleSubmit = async (formData: { [key: string]: string }) => {
+    const { title, description, srcImage } = formData;
+    const res = await updateService({ id, newTitle: title, newDescription: description, newSrcImage: srcImage });
+    if (res) {
+      router.refresh();
+      router.push("/admin");
+    }
+  };
+
+  return <AdminForm fields={fields} onSubmit={handleSubmit} />
 }
