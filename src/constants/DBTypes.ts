@@ -19,3 +19,19 @@ export interface ServiceUpdated {
   newSrcImage: string;
   id: string;
 }
+
+export interface Contact {
+  title: string;
+  description: string;
+  _id?: string;
+}
+
+export interface ContactResponse {
+  contacts: Contact[];
+}
+
+export interface ContactUpdated {
+  newTitle: string;
+  newDescription: string;
+  id: string;
+}

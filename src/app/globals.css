@@ -49,4 +49,8 @@ body {
   .cta-text {
     @apply text-black font-extrabold flex-1 text-xl max-md:text-center;
   }
+
+  .admin-container {
+    @apply flex flex-col gap-5 p-2 border rounded-md border-black;
+  }
 }
