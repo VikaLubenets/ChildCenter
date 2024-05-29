@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Contacts from "./(contacts)/Contacts";
 import { ServicesLine } from "./(services)/ServicesLine";
 
@@ -8,6 +9,9 @@ export default function Admin(){
       <div className="flex flex-col gap-5">
           <ServicesLine />
           <Contacts />
+          <Link href={"/admin/schedule"} className='btn'>
+            Изменить расписание
+          </Link>
       </div>
 
     </main>
