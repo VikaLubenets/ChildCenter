@@ -35,3 +35,35 @@ export interface ContactUpdated {
   newDescription: string;
   id: string;
 }
+
+export interface Event {
+  _id?: string;
+  title: string;
+  description: string;
+  date: string;
+  startTime: string;
+  endTime: string;
+  everyWeek: boolean;
+  address: string;
+  price: string;
+  imagesSrc: string[] | string;
+  type: 'master-class' | 'lesson' | 'ecological';
+}
+
+export interface EventUpdated {
+  id: string;
+  newTitle: string;
+  newDescription: string;
+  newDate: Date;
+  newStartTime: string,
+  newEndTime: string,
+  newEveryWeek: boolean;
+  newAddress: string;
+  newPrice: string;
+  newImagesSrc: string[];
+  newType: 'master-class' | 'lesson' | 'ecological';
+}
+
+export interface EventResponse {
+  events: Event[];
+}
