@@ -116,11 +116,6 @@ const EditEventModal: React.FC<EditEventModalProps> = ({ id, showModal, closeMod
           icon={icon}
           title="Редактировать мероприятие"
         />
-        <DeleteEventModal
-          eventId={id}
-          showModal={showDeleteModal}
-          closeModal={closeModal}
-        />
       </>
       )}
     </>

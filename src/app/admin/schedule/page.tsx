@@ -29,6 +29,7 @@ const ScheduleComponent = () => {
   const [showModal, setShowModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [idToShow, setIdToShow] = useState<string | null>(null);
+  const [idToDelete, setIdToDelete] = useState<string | null>(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [newEvent, setNewEvent] = useState<EventCalendar>({
     title: '',
@@ -39,17 +40,17 @@ const ScheduleComponent = () => {
   });
 
   useEffect(() => {
-    const draggableEl = document.getElementById('draggable-el');
-    if (draggableEl) {
-      new Draggable(draggableEl, {
-        itemSelector: ".fc-event",
-        eventData: function (eventEl) {
-          const title = eventEl.getAttribute("title");
-          const id = eventEl.getAttribute("data");
-          return { title, id };
-        }
-      });
-    }
+    // const draggableEl = document.getElementById('draggable-el');
+    // if (draggableEl) {
+    //   new Draggable(draggableEl, {
+    //     itemSelector: ".fc-event",
+    //     eventData: function (eventEl) {
+    //       const title = eventEl.getAttribute("title");
+    //       const id = eventEl.getAttribute("data");
+    //       return { title, id };
+    //     }
+    //   });
+    // }
 
     const fetchEvents = async () => {
       const eventsResponse = await getEvents();
@@ -96,6 +97,7 @@ const ScheduleComponent = () => {
   function handleEditModal(data: { event: { id: string } }) {
     setShowEditModal(true);
     setIdToShow(data.event.id);
+    setIdToDelete(data.event.id);
   }
 
   function handleCloseModal() {
@@ -103,6 +105,11 @@ const ScheduleComponent = () => {
     setShowDeleteModal(false);
     setShowEditModal(false);
     setIdToShow(null);
+  }
+
+  function handleCloseDeleteModal() {
+    setShowDeleteModal(false);
+    setIdToDelete(null);
   }
 
   return (
@@ -147,6 +154,11 @@ const ScheduleComponent = () => {
         closeModal={handleCloseModal} 
         showDeleteModal={showDeleteModal}
         handleDeleteModal={setShowDeleteModal} 
+        />
+       <DeleteEventModal
+          eventId={idToDelete}
+          showModal={showDeleteModal}
+          closeModal={handleCloseDeleteModal}
         />
     </section>
   )

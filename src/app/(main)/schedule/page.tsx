@@ -1,5 +1,5 @@
 import CTAConnect from '@/components/CTAConnect';
-import { ScheduleComponent } from './ScheduleComponent'
+import ScheduleComponent from './ScheduleComponent'
 
 const Schedule = () => {
   return(

@@ -1,11 +1,11 @@
 import BookingBtn from "@/components/BookingBtn";
 import CTA from "@/components/CTA";
 
-const Eco = () => {
+const Events = () => {
   return(
     <article className="article">
       <div className="flex justify-between w-[95%]">
-        <h2 className="subtitle-header">Экологическое творчество</h2>
+        <h2 className="subtitle-header">Занятия</h2>
         <BookingBtn />
       </div>
       <p>Текст</p>
@@ -14,4 +14,4 @@ const Eco = () => {
   )
 };
 
-export default Eco;
+export default Events;

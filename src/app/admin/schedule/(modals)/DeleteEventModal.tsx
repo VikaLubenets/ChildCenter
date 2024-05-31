@@ -7,7 +7,7 @@ import React from 'react';
 import Modal from './Modal';
 
 type DeleteEventModalProps = {
-  eventId: string;
+  eventId: string | null;
   showModal: boolean;
   closeModal: () => void;
 }
@@ -22,6 +22,7 @@ const DeleteEventModal = ({
   async function handleDelete () {
     try {
       console.log('handleDelete is triggered for eventId:', eventId);
+      if(!eventId) return;
       const res = await deleteEvent(eventId);
       if (res) {
         router.push("/admin");
@@ -38,7 +39,7 @@ const DeleteEventModal = ({
     <Modal 
       showModal={showModal}
       closeModal={closeModal}
-      handleSubmit={handleDelete}
+      deleteFn={handleDelete}
       icon={<TrashIcon className="h-6 w-6 text-red-600" aria-hidden="true" />}
       title="Удаление события"
       content="Вы уверены, что хотите удалить это событие? Это действие не может быть отменено."

@@ -1,147 +1,96 @@
 'use client'
 
-import FullCalendar from "@fullcalendar/react"
-import React, { useEffect, useState } from "react"
-import dayGridPlugin from '@fullcalendar/daygrid'
-import interactionPlugin, { Draggable, DropArg } from '@fullcalendar/interaction'
-import timeGridPlugin from '@fullcalendar/timegrid'
-import { EventSourceInput } from "@fullcalendar/core"
+import FullCalendar from "@fullcalendar/react";
+import React, { useEffect, useState } from "react";
+import dayGridPlugin from '@fullcalendar/daygrid';
+import interactionPlugin from '@fullcalendar/interaction';
+import timeGridPlugin from '@fullcalendar/timegrid';
+import { EventSourceInput } from "@fullcalendar/core";
+import ruLocale from '@fullcalendar/core/locales/ru';
+import { getEvents } from "@/store/queries/events";
+import Loader from "@/components/Loader/Loader";
+import type {Event} from '@/constants/DBTypes';
+import { useRouter } from "next/navigation";
 
-interface Event {
+
+interface EventCalendar {
   title: string;
   start: Date | string;
+  end: Date | string;
   allDay: boolean;
-  id: number;
+  id: string;
 }
 
-
-export const ScheduleComponent = () => {
-
-  const [events, setEvents] = useState([
-    {title: 'event 1', id: '1' },
-    {title: 'event 2', id: '2' },
-    {title: 'event 3', id: '3' },
-    {title: 'event 4', id: '4' },
-    {title: 'event 5', id: '5' },
-  ])
-
-  const [allEvents, setAllEvents] = useState<Event[]>([])
-  const [showModal, setShowModal] = useState(false)
-  const [showDeleteModal, setShowDeleteModal] = useState(false)
-  const [idToDelete, setIdToDelete] = useState<number | null>(null)
-  const [newEvent, setNewEvent] = useState<Event>({
-    title: '',
-    start: '',
-    allDay: false,
-    id: 0
-  })
-
+const ScheduleComponent = () => {
+  const [allEvents, setAllEvents] = useState<EventCalendar[]>([]);
+  const [loading, setLoading] = useState(true);
+  const router = useRouter();
+  
   useEffect(() => {
-    let draggableEl = document.getElementById('draggable-el')
-    if (draggableEl) {
-      new Draggable(draggableEl, {
-        itemSelector: ".fc-event",
-        eventData: function (eventEl) {
-          let title = eventEl.getAttribute("title")
-          let id = eventEl.getAttribute("data")
-          let start = eventEl.getAttribute("start")
-          return { title, id, start }
-        }
-      })
-    }
-  }, [])
+    const fetchEvents = async () => {
+      const eventsResponse = await getEvents();
+      if (eventsResponse) {
+        formatEvents(eventsResponse.events);
+      }
+      setLoading(false);
+    };
 
-  function handleDateClick(arg: { date: Date, allDay: boolean }) {
-    setNewEvent({ ...newEvent, start: arg.date, allDay: arg.allDay, id: new Date().getTime() })
-    setShowModal(true)
+    fetchEvents();
+  }, []);
+
+  if (loading) {
+    return <Loader />;
   }
 
-  function addEvent(data: DropArg) {
-    const event = { ...newEvent, start: data.date.toISOString(), title: data.draggedEl.innerText, allDay: data.allDay, id: new Date().getTime() }
-    setAllEvents([...allEvents, event])
-  }
+  function parseDateTime (date: string, time: string) {
+    const [year, month, day] = date.split("-");
+    const [hours, minutes] = time.split(":");
+    return new Date(parseInt(year), parseInt(month) - 1, parseInt(day), parseInt(hours), parseInt(minutes));
+  };
 
-  function handleDeleteModal(data: { event: { id: string } }) {
-    setShowDeleteModal(true)
-    setIdToDelete(Number(data.event.id))
-  }
-
-  function handleDelete() {
-    setAllEvents(allEvents.filter(event => Number(event.id) !== Number(idToDelete)))
-    setShowDeleteModal(false)
-    setIdToDelete(null)
-  }
-
-  function handleCloseModal() {
-    setShowModal(false)
-    setNewEvent({
-      title: '',
-      start: '',
+  function formatEvents(events: Event[]) {
+    const res = events.map(event => ({
+      title: event.title,
+      start: parseDateTime(event.date, event.startTime),
+      end: parseDateTime(event.date, event.endTime),
       allDay: false,
-      id: 0
-    })
-    setShowDeleteModal(false)
-    setIdToDelete(null)
-  }
+      id: event._id || ""
+    }))
+    setAllEvents(res)
+  };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    setNewEvent({
-      ...newEvent,
-      title: e.target.value
-    })
-  }
-
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault()
-    setAllEvents([...allEvents, newEvent])
-    setShowModal(false)
-    setNewEvent({
-      title: '',
-      start: '',
-      allDay: false,
-      id: 0
-    })
+  function handleEventClick (id: string){
+    console.log(id)
+    router.push(`/events/${id}`)
   }
 
   return (
-    <section className="flex flex-col min-h-screen gap-5">
+    <section className="flex flex-col min-h-screen gap-5 m-10">
       <div className="grid grid-cols-10">
         <div className="col-span-8">
           <FullCalendar
             plugins={[
-                dayGridPlugin,
-                interactionPlugin,
-                timeGridPlugin
+              dayGridPlugin,
+              interactionPlugin,
+              timeGridPlugin
             ]}
             headerToolbar={{
               left: 'prev,next today',
               center: 'title',
-              right: 'resourceTimelineWook, dayGridMonth,timeGridWeek'
+              right: 'timeGridWeek,dayGridMonth'
             }}
+            locales={[ruLocale]}
+            locale="ru"
             events={allEvents as EventSourceInput}
             nowIndicator={true}
-            editable={true}
             selectable={true}
             selectMirror={true}
-            droppable={true}
-            dateClick={handleDateClick}
-            drop={(data) => addEvent(data)}
-            eventClick={(data) => handleDeleteModal(data)}
+            eventClick={(data) => handleEventClick(data.event.id)}
           />
-        </div>
-        <div className="ml-8 w-full border-2 p-2 rounded-md mt-16 lg:h-1/2 bg-violet-100" id='draggable-el'>
-            <h2 className="font-bold text-lg text-center">Drag Event</h2>
-            {events.map(event => (
-              <div
-                className="fc-event border-2 p-1 m-2 w-full rounded-md ml-auto text-center bg-white"
-                title={event.title}
-                key={event.id}
-              >
-                {event.title}
-              </div>
-            ))}
         </div>
       </div>
     </section>
   )
 }
+
+export default ScheduleComponent;

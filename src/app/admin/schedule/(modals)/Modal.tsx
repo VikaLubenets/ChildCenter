@@ -13,6 +13,7 @@ interface ModalProps {
   title: string;
   content?: React.ReactNode;
   handleDelete?: (arg: boolean) => void;
+  deleteFn?: () => void;
 }
 
 const Modal = ({ 
@@ -26,10 +27,11 @@ const Modal = ({
   title,
   content,
   handleDelete,
+  deleteFn,
 }: ModalProps) => {
   return (
     <Transition.Root show={showModal} as={Fragment}>
-      <Dialog as="div" className="relative z-10" onClose={closeModal}>
+      <Dialog as="div" className={`relative ${deleteFn ? 'z-20' : ' z-10'}`} onClose={closeModal}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -42,7 +44,7 @@ const Modal = ({
           <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
         </Transition.Child>
 
-        <div className="fixed inset-0 z-10 overflow-y-auto">
+        <div className={deleteFn ? "fixed inset-0 z-20 overflow-y-auto" : "fixed inset-0 z-10 overflow-y-auto"}>
           <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
             <Transition.Child
               as={Fragment}
@@ -56,8 +58,8 @@ const Modal = ({
               <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
                 <div>
                     {handleDelete ? (
-                        <div onClick={()=>handleDelete(true)} className="mx-auto flex w-full items-center justify-end">
-                          <TrashIcon className="h-6 w-6 text-red-600 cursor-pointer hover:text-red-800" aria-hidden="true" />
+                        <div className="mx-auto flex w-full items-center justify-end">
+                          <TrashIcon onClick={()=>handleDelete(true)} className="h-6 w-6 text-red-600 cursor-pointer hover:text-red-800" aria-hidden="true" />
                         </div>
                     ) : (
                       <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-green-100">
@@ -139,25 +141,28 @@ const Modal = ({
                     </form>
                     }
                     {content && (
-                      <div className="mt-2">
-                        {content}
-                      </div>
-                    )}
-                    {content && (
-                      <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-                        <button 
-                          type="button" 
-                          className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto" 
-                          onClick={handleSubmit}>
-                          Удалить {JSON.stringify(handleSubmit)}
-                        </button>
-                        <button 
-                          type="button" 
-                          className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto" 
-                          onClick={closeModal}>
-                          Отменить
-                        </button>
-                      </div>
+                      <>
+                        <div className="mt-2">
+                          {content}
+                        </div>
+                        <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6 ">
+                          <button 
+                            type="button" 
+                            className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm 
+                            font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto" 
+                            onClick={deleteFn}>
+                            Удалить
+                          </button>
+                          <button 
+                            type="button" 
+                            className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 
+                            shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
+                            onClick={closeModal}
+                          >
+                            Отменить
+                          </button>
+                        </div>
+                      </>
                     )}
                   </div>
                 </div>
