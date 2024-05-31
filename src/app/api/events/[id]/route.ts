@@ -10,20 +10,32 @@ interface Params {
 
 export async function PUT(request: NextRequest, { params }: Params) {
   const { id } = params;
-  const { newTitle, newDescription, newStartTime, newEndTime, newEveryWeek, newAddress, newPrice, newImagesSrc, newType, newDate } = await request.json();
+  const { 
+    newTitle: title, 
+    newDescription: description, 
+    newStartTime: startTime, 
+    newEndTime: endTime, 
+    newEveryWeek: everyWeek, 
+    newAddress: address, 
+    newPrice: price, 
+    newImagesSrc: imagesSrc, 
+    newType: type, 
+    newDate: date 
+  } = await request.json();
   await connectMongoDB();
-  await Event.findByIdAndUpdate(id, { 
-    title: newTitle, 
-    description: newDescription, 
-    startTime: newStartTime,
-    endTime: newEndTime,
-    everyWeek: newEveryWeek, 
-    address: newAddress, 
-    price: newPrice, 
-    imagesSrc: newImagesSrc,
-    date: newDate,
-    type: newType,
+  await Event.findByIdAndUpdate(id, {
+    title, 
+    description, 
+    startTime,
+    endTime,
+    everyWeek, 
+    address, 
+    price, 
+    imagesSrc,
+    date,
+    type,
   });
+
   return NextResponse.json({ message: 'Event updated' }, { status: 200 });
 }
 

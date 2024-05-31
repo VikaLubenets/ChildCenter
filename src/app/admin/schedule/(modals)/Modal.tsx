@@ -1,4 +1,5 @@
 import { Dialog, Transition } from '@headlessui/react';
+import TrashIcon from '@heroicons/react/24/outline/TrashIcon';
 import React, { Fragment } from 'react';
 
 interface ModalProps {
@@ -11,6 +12,7 @@ interface ModalProps {
   icon: React.ReactNode;
   title: string;
   content?: React.ReactNode;
+  handleDelete?: (arg: boolean) => void;
 }
 
 const Modal = ({ 
@@ -22,7 +24,8 @@ const Modal = ({
   fields, 
   icon,
   title,
-  content
+  content,
+  handleDelete,
 }: ModalProps) => {
   return (
     <Transition.Root show={showModal} as={Fragment}>
@@ -52,10 +55,17 @@ const Modal = ({
             >
               <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
                 <div>
-                  <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-green-100">
-                    {icon}
-                  </div>
-                  <div className="mt-3 text-center sm:mt-5">
+                    {handleDelete ? (
+                        <div onClick={()=>handleDelete(true)} className="mx-auto flex w-full items-center justify-end">
+                          <TrashIcon className="h-6 w-6 text-red-600 cursor-pointer hover:text-red-800" aria-hidden="true" />
+                        </div>
+                    ) : (
+                      <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-green-100">
+                        {icon}
+                      </div>
+                    )
+                  }
+                  <div className="mt-2 text-center sm:mt-5">
                     <Dialog.Title as="h3" className="text-base font-semibold leading-6 text-gray-900">
                       {title}
                     </Dialog.Title>
@@ -139,7 +149,7 @@ const Modal = ({
                           type="button" 
                           className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto" 
                           onClick={handleSubmit}>
-                          Удалить
+                          Удалить {JSON.stringify(handleSubmit)}
                         </button>
                         <button 
                           type="button" 

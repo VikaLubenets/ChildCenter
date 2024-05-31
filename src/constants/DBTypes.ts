@@ -54,13 +54,13 @@ export interface EventUpdated {
   id: string;
   newTitle: string;
   newDescription: string;
-  newDate: Date;
+  newDate: string;
   newStartTime: string,
   newEndTime: string,
   newEveryWeek: boolean;
   newAddress: string;
   newPrice: string;
-  newImagesSrc: string[];
+  newImagesSrc: string[] | string;
   newType: 'master-class' | 'lesson' | 'ecological';
 }
 

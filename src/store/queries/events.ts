@@ -1,7 +1,7 @@
 import { Event, EventResponse, EventUpdated } from "@/constants/DBTypes";
 import { cache } from "react";
 
-export const getEvents = cache(async (): Promise<EventResponse | null> => {
+export const getEvents = async (): Promise<EventResponse | null> => {
   try {
     const res = await fetch('/api/events');
 
@@ -15,7 +15,7 @@ export const getEvents = cache(async (): Promise<EventResponse | null> => {
     console.error(err);
     return null;
   }
-});
+};
 
 export const addEvent = async (params: Event): Promise<Response | null> => {
   try {
@@ -45,7 +45,7 @@ export const addEvent = async (params: Event): Promise<Response | null> => {
   }
 };
 
-export const deleteEvent = cache(async (id: string): Promise<Response | null> => {
+export const deleteEvent = async (id: string): Promise<Response | null> => {
   try {
     const response = await fetch(`/api/events/?id=${id}`, {
       method: "DELETE",
@@ -59,7 +59,7 @@ export const deleteEvent = cache(async (id: string): Promise<Response | null> =>
     console.error("Error deleting event:", error);
     return null;
   }
-});
+};
 
 export const getEventById = cache(async (id: string): Promise<{ event: Event } | null> => {
   try {
@@ -75,7 +75,7 @@ export const getEventById = cache(async (id: string): Promise<{ event: Event } |
   }
 });
 
-export const updateEvent = cache(async (params: EventUpdated): Promise<{ event: Event } | null> => {
+export const updateEvent = async (params: EventUpdated): Promise<{ event: Event } | null> => {
   try {
     const response = await fetch(`/api/events/${params.id}`, {
       method: "PUT",
@@ -83,16 +83,16 @@ export const updateEvent = cache(async (params: EventUpdated): Promise<{ event: 
         "Content-type": "application/json",
       },
       body: JSON.stringify({
-        title: params.newTitle,
-        description: params.newDescription,
-        date: params.newDate,
-        startTime: params.newStartTime,
-        endTime: params.newEndTime,
-        everyWeek: params.newEveryWeek,
-        address: params.newAddress,
-        price: params.newPrice,
-        imagesSrc: params.newImagesSrc,
-        type: params.newType
+        newTitle: params.newTitle,
+        newDescription: params.newDescription,
+        newDate: params.newDate,
+        newStartTime: params.newStartTime,
+        newEndTime: params.newEndTime,
+        newEveryWeek: params.newEveryWeek,
+        newAddress: params.newAddress,
+        newPrice: params.newPrice,
+        newImagesSrc: params.newImagesSrc,
+        newType: params.newType
       }),
     });
     if (!response.ok) {
@@ -104,4 +104,4 @@ export const updateEvent = cache(async (params: EventUpdated): Promise<{ event: 
     console.error("Error updating event:", error);
     return null;
   }
-});
+};

@@ -7,7 +7,7 @@ import React from 'react';
 import Modal from './Modal';
 
 type DeleteEventModalProps = {
-  eventId: string | null;
+  eventId: string;
   showModal: boolean;
   closeModal: () => void;
 }
@@ -19,16 +19,16 @@ const DeleteEventModal = ({
 }: DeleteEventModalProps) => {
   const router = useRouter();
 
-  const handleDelete = async (eventId: string | null) => {
+  async function handleDelete () {
     try {
-      closeModal();
-      if(!eventId) return;
+      console.log('handleDelete is triggered for eventId:', eventId);
       const res = await deleteEvent(eventId);
       if (res) {
-        router.push("/admin/schedule");
+        router.push("/admin");
       } else {
         console.error("Failed to delete the event");
       }
+      closeModal();
     } catch (error) {
       console.error("An error occurred while deleting the event:", error);
     }

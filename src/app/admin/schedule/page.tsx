@@ -12,6 +12,7 @@ import ruLocale from '@fullcalendar/core/locales/ru';
 import { getEvents } from "@/store/queries/events";
 import Loader from "@/components/Loader/Loader";
 import type {Event} from '@/constants/DBTypes';
+import EditEventModal from "./(modals)/EditEventModal";
 
 
 interface EventCalendar {
@@ -23,12 +24,12 @@ interface EventCalendar {
 }
 
 const ScheduleComponent = () => {
-  const [events, setEvents] = useState<Event[]>([]);
   const [allEvents, setAllEvents] = useState<EventCalendar[]>([]);
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [idToShow, setIdToShow] = useState<string | null>(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [idToDelete, setIdToDelete] = useState<string | null>(null);
   const [newEvent, setNewEvent] = useState<EventCalendar>({
     title: '',
     start: '',
@@ -53,7 +54,6 @@ const ScheduleComponent = () => {
     const fetchEvents = async () => {
       const eventsResponse = await getEvents();
       if (eventsResponse) {
-        setEvents(eventsResponse.events)
         formatEvents(eventsResponse.events);
       }
       setLoading(false);
@@ -67,8 +67,6 @@ const ScheduleComponent = () => {
   }
 
   function parseDateTime (date: string, time: string) {
-    console.log('date: ', date)
-    console.log('time: ', time)
     const [year, month, day] = date.split("-");
     const [hours, minutes] = time.split(":");
     return new Date(parseInt(year), parseInt(month) - 1, parseInt(day), parseInt(hours), parseInt(minutes));
@@ -95,15 +93,16 @@ const ScheduleComponent = () => {
     setAllEvents([...allEvents, event]);
   }
 
-  function handleDeleteModal(data: { event: { id: string } }) {
-    setShowDeleteModal(true);
-    setIdToDelete(data.event.id);
+  function handleEditModal(data: { event: { id: string } }) {
+    setShowEditModal(true);
+    setIdToShow(data.event.id);
   }
 
   function handleCloseModal() {
     setShowModal(false);
     setShowDeleteModal(false);
-    setIdToDelete(null);
+    setShowEditModal(false);
+    setIdToShow(null);
   }
 
   return (
@@ -131,32 +130,24 @@ const ScheduleComponent = () => {
             droppable={true}
             dateClick={handleDateClick}
             drop={(data) => addEvent(data)}
-            eventClick={(data) => handleDeleteModal(data)}
+            eventClick={(data) => handleEditModal(data)}
           />
         </div>
-        <div className="ml-8 w-full border-2 p-2 rounded-md mt-16 lg:h-1/2 bg-violet-100" id='draggable-el'>
-          <h2 className="font-bold text-sm text-center">Регулярные мероприятия</h2>
+        <div className="ml-8 w-full p-2 mt-16 lg:h-1/2" id='draggable-el'>
           <button onClick={() => setShowModal(true)} className='btn w-max-[100%]'>Создать мероприятие</button>
-          {events.map(event => (
-            <div
-              className="fc-event border-2 p-1 m-2 w-full rounded-md ml-auto text-center bg-white"
-              title={event.title}
-              key={event._id}
-            >
-              {event.title}
-            </div>
-          ))}
         </div>
       </div>
       <CreateEventModal
         showModal={showModal}
         closeModal={handleCloseModal}
       />
-      <DeleteEventModal
-        eventId={idToDelete}
-        showModal={showDeleteModal}
-        closeModal={handleCloseModal}
-      />
+      <EditEventModal 
+        id={idToShow}
+        showModal={showEditModal}
+        closeModal={handleCloseModal} 
+        showDeleteModal={showDeleteModal}
+        handleDeleteModal={setShowDeleteModal} 
+        />
     </section>
   )
 }
