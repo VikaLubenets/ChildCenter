@@ -49,7 +49,7 @@ const ScheduleComponent = () => {
     };
 
     fetchEvents();
-  }, []);
+  }, [formatEvents]);
 
   if (loading) {
     return <Loader />;

@@ -34,7 +34,7 @@ const CertificatesPage = () => {
         </div>
           {certificates && certificates.map(certificate => {
             return(
-            <div className="flex justify-between p-3 border border-black rounded-md w-[90%]">
+            <div key={certificate._id} className="flex justify-between p-3 border border-black rounded-md w-[90%]">
               <h2>{certificate.title}</h2>
               <p>{certificate.price}</p>
             </div>

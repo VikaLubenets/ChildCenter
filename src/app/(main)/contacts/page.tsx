@@ -31,7 +31,7 @@ const Contacts = () => {
       <h2 className="subtitle-header">Контакты</h2>
       {contacts && contacts.map(contact => {
         return(
-        <div className="flex flex-col p-3 border border-black rounded-md w-[90%]">
+        <div key={contact._id} className="flex flex-col p-3 border border-black rounded-md w-[90%]">
           <h2>{contact.title}</h2>
           <p>{contact.description}</p>
         </div>
