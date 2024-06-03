@@ -94,6 +94,10 @@ input {
   @apply bg-violet-600;
 }
 
+.fc-event {
+  @apply cursor-pointer
+}
+
 .fc .fc-button-primary:disabled {
   @apply bg-violet-600;
 }

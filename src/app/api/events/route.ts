@@ -9,10 +9,16 @@ export async function POST(request: NextRequest) {
   return NextResponse.json({ message: 'Event created' }, { status: 201 });
 }
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+  const queryParams = request.nextUrl.searchParams;
+  const type = queryParams.get("type");
   await connectMongoDB();
+  if (type) {
+    const events = await Event.find({ type });
+    return NextResponse.json({ events }, { status: 200 });
+  }
   const events = await Event.find();
-  return NextResponse.json({ events });
+  return NextResponse.json({ events }, { status: 200 })
 }
 
 export async function DELETE(request: NextRequest) {

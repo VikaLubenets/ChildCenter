@@ -36,7 +36,7 @@ export interface ContactUpdated {
   id: string;
 }
 
-export interface Event {
+export interface AppEvent  {
   _id?: string;
   title: string;
   description: string;
@@ -65,5 +65,36 @@ export interface EventUpdated {
 }
 
 export interface EventResponse {
-  events: Event[];
+  events: AppEvent[];
+}
+
+export interface About {
+  description: string;
+  type: 'rent' | 'studio';
+  _id?: string;
+}
+
+export interface AboutResponse {
+  about: About;
+}
+
+export interface AboutUpdate {
+  newDescription: string;
+  id: string;
+}
+
+export interface Certificate {
+  title: string;
+  price: string;
+  _id?: string;
+}
+
+export interface CertificateResponse {
+  certificates: Certificate[];
+}
+
+export interface CertificateUpdated {
+  newTitle: string;
+  newPrice: string;
+  id: string;
 }

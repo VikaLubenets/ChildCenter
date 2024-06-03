@@ -11,7 +11,7 @@ import DeleteEventModal from "./(modals)/DeleteEventModal";
 import ruLocale from '@fullcalendar/core/locales/ru';
 import { getEvents } from "@/store/queries/events";
 import Loader from "@/components/Loader/Loader";
-import type {Event} from '@/constants/DBTypes';
+import type {AppEvent} from '@/constants/DBTypes';
 import EditEventModal from "./(modals)/EditEventModal";
 
 
@@ -40,18 +40,6 @@ const ScheduleComponent = () => {
   });
 
   useEffect(() => {
-    // const draggableEl = document.getElementById('draggable-el');
-    // if (draggableEl) {
-    //   new Draggable(draggableEl, {
-    //     itemSelector: ".fc-event",
-    //     eventData: function (eventEl) {
-    //       const title = eventEl.getAttribute("title");
-    //       const id = eventEl.getAttribute("data");
-    //       return { title, id };
-    //     }
-    //   });
-    // }
-
     const fetchEvents = async () => {
       const eventsResponse = await getEvents();
       if (eventsResponse) {
@@ -73,7 +61,7 @@ const ScheduleComponent = () => {
     return new Date(parseInt(year), parseInt(month) - 1, parseInt(day), parseInt(hours), parseInt(minutes));
   };
 
-  function formatEvents(events: Event[]) {
+  function formatEvents(events: AppEvent[]) {
     const res = events.map(event => ({
       title: event.title,
       start: parseDateTime(event.date, event.startTime),
@@ -131,16 +119,14 @@ const ScheduleComponent = () => {
             locale="ru"
             events={allEvents as EventSourceInput}
             nowIndicator={true}
-            editable={true}
             selectable={true}
             selectMirror={true}
-            droppable={true}
             dateClick={handleDateClick}
             drop={(data) => addEvent(data)}
             eventClick={(data) => handleEditModal(data)}
           />
         </div>
-        <div className="ml-8 w-full p-2 mt-16 lg:h-1/2" id='draggable-el'>
+        <div className="ml-8 w-full p-2 mt-16 lg:h-1/2">
           <button onClick={() => setShowModal(true)} className='btn w-max-[100%]'>Создать мероприятие</button>
         </div>
       </div>

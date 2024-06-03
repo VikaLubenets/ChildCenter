@@ -1,4 +1,4 @@
-import { Event, EventResponse, EventUpdated } from "@/constants/DBTypes";
+import { AppEvent , EventResponse, EventUpdated } from "@/constants/DBTypes";
 import { cache } from "react";
 
 export const getEvents = async (): Promise<EventResponse | null> => {
@@ -17,7 +17,7 @@ export const getEvents = async (): Promise<EventResponse | null> => {
   }
 };
 
-export const addEvent = async (params: Event): Promise<Response | null> => {
+export const addEvent = async (params: AppEvent ): Promise<Response | null> => {
   try {
     const res = await fetch('/api/events', {
       method: "POST",
@@ -61,8 +61,9 @@ export const deleteEvent = async (id: string): Promise<Response | null> => {
   }
 };
 
-export const getEventById = cache(async (id: string): Promise<{ event: Event } | null> => {
+export const getEventById = async (id: string): Promise<{ event: AppEvent  } | null> => {
   try {
+    console.log('get event triggered')
     const response = await fetch(`/api/events/${id}`);
     if (!response.ok) {
       throw new Error("Failed to fetch event");
@@ -73,9 +74,9 @@ export const getEventById = cache(async (id: string): Promise<{ event: Event } |
     console.error("Error fetching event:", error);
     return null;
   }
-});
+};
 
-export const updateEvent = async (params: EventUpdated): Promise<{ event: Event } | null> => {
+export const updateEvent = async (params: EventUpdated): Promise<{ event: AppEvent  } | null> => {
   try {
     const response = await fetch(`/api/events/${params.id}`, {
       method: "PUT",

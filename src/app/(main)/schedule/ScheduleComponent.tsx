@@ -9,7 +9,7 @@ import { EventSourceInput } from "@fullcalendar/core";
 import ruLocale from '@fullcalendar/core/locales/ru';
 import { getEvents } from "@/store/queries/events";
 import Loader from "@/components/Loader/Loader";
-import type {Event} from '@/constants/DBTypes';
+import type {AppEvent } from '@/constants/DBTypes';
 import { useRouter } from "next/navigation";
 
 
@@ -48,7 +48,7 @@ const ScheduleComponent = () => {
     return new Date(parseInt(year), parseInt(month) - 1, parseInt(day), parseInt(hours), parseInt(minutes));
   };
 
-  function formatEvents(events: Event[]) {
+  function formatEvents(events: AppEvent[]) {
     const res = events.map(event => ({
       title: event.title,
       start: parseDateTime(event.date, event.startTime),
@@ -60,7 +60,6 @@ const ScheduleComponent = () => {
   };
 
   function handleEventClick (id: string){
-    console.log(id)
     router.push(`/events/${id}`)
   }
 

@@ -51,7 +51,8 @@ const CreateEventModal = ({
     const res = await addEvent({ title, description, date,  startTime, endTime, everyWeek, address, price, imagesSrc, type });
 
     if (res) {
-      router.refresh()
+      router.refresh();
+      router.push("/admin");
     } else {
       console.error("Failed to create an event");
     }
