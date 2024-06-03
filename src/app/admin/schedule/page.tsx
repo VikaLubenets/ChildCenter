@@ -115,6 +115,11 @@ const ScheduleComponent = () => {
               center: 'title',
               right: 'timeGridWeek,dayGridMonth'
             }}
+            eventTimeFormat={
+              {hour: '2-digit',
+              minute: '2-digit',
+              meridiem: false}
+            }
             locales={[ruLocale]}
             locale="ru"
             events={allEvents as EventSourceInput}

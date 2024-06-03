@@ -5,7 +5,7 @@ import CheckIcon from '@heroicons/react/20/solid/CheckIcon';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import Modal from './Modal';
-import type {Event} from '@/constants/DBTypes'
+import type {AppEvent} from '@/constants/DBTypes'
 
 type CreateEventModalProps = {
   showModal: boolean;
@@ -17,7 +17,7 @@ const CreateEventModal = ({
   closeModal
 }: CreateEventModalProps) => {
   const router = useRouter();
-  const [newEvent, setNewEvent] = useState<Event>({
+  const [newEvent, setNewEvent] = useState<AppEvent>({
     title: '',
     description: '',
     date: '',
@@ -52,7 +52,7 @@ const CreateEventModal = ({
 
     if (res) {
       router.refresh();
-      router.push("/admin");
+      router.push("/admin/schedule");
     } else {
       console.error("Failed to create an event");
     }

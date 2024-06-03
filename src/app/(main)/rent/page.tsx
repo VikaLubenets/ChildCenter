@@ -19,7 +19,7 @@ const Rent = () => {
     const fetchAbout = async () => {
       const aboutResponse = await getRentDescription();
       if (aboutResponse) {
-        setAboutRent(aboutResponse.about);
+        setAboutRent(aboutResponse);
       }
       setLoading(false);
     };

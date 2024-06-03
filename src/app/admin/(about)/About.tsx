@@ -16,11 +16,11 @@ export default function About() {
       const studio = await getStudioDescription();
 
       if (rent && studio) {
-        setAbout([rent.about, studio.about]);
+        setAbout([rent, studio]);
       } else if (rent) {
-        setAbout([rent.about]);
+        setAbout([rent]);
       } else if (studio) {
-        setAbout([studio.about]);
+        setAbout([studio]);
       }
 
       setLoading(false);

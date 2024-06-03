@@ -64,9 +64,9 @@ const ScheduleComponent = () => {
   }
 
   return (
-    <section className="flex flex-col min-h-screen gap-5 m-10">
+    <section className="flex flex-col min-h-screen gap-3 mt-10 w-full">
       <div className="grid grid-cols-10">
-        <div className="col-span-8">
+        <div className="col-span-9">
           <FullCalendar
             plugins={[
               dayGridPlugin,
@@ -80,6 +80,11 @@ const ScheduleComponent = () => {
             }}
             locales={[ruLocale]}
             locale="ru"
+            eventTimeFormat={
+              {hour: '2-digit',
+              minute: '2-digit',
+              meridiem: false}
+            }
             events={allEvents as EventSourceInput}
             nowIndicator={true}
             selectable={true}

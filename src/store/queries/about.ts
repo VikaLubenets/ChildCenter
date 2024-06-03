@@ -1,7 +1,7 @@
 import { About, AboutResponse, AboutUpdate } from "@/constants/DBTypes";
 import { cache } from "react";
 
-export const getRentDescription = cache(async (): Promise<AboutResponse | null> => {
+export const getRentDescription = async (): Promise<About | null> => {
   try {
     const res = await fetch('/api/about/rent');
 
@@ -10,14 +10,14 @@ export const getRentDescription = cache(async (): Promise<AboutResponse | null> 
     }
 
     const rentDescription: AboutResponse = await res.json();
-    return rentDescription;
+    return rentDescription.about;
   } catch (err) {
     console.error(err);
     return null;
   }
-});
+};
 
-export const getStudioDescription = cache(async (): Promise<AboutResponse | null> => {
+export const getStudioDescription = async (): Promise<About | null> => {
   try {
     const res = await fetch('/api/about/studio');
 
@@ -26,12 +26,12 @@ export const getStudioDescription = cache(async (): Promise<AboutResponse | null
     }
 
     const studioDescription: AboutResponse = await res.json();
-    return studioDescription;
+    return studioDescription.about;
   } catch (err) {
     console.error(err);
     return null;
   }
-});
+};
 
 export const addOrUpdateRentDescription = async (params: About): Promise<Response | null> => {
   try {

@@ -9,7 +9,7 @@ const Banner = () => {
         <h1 className='font-extrabold lg:text-4xl text-2xl'>Творческая мастерская</h1>
         <h2>Сделайте вклад в развитие вашего ребенка</h2>
         <Link 
-          className='w-[300px] h-[60px] bg-[#FFE3E3] text-[#D08D85] text-center flex justify-center items-center rounded-lg cursor-pointer text-lg lg:text-xl hover:bg-white active:text-green-500' 
+          className='btn' 
           href={'/menu'}
         >
           Выбрать занятие

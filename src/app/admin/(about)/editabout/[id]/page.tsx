@@ -42,9 +42,10 @@ export default function EditAbout({ params }: Params) {
   }
 
   const { description } = about;
-
+  const placeholder = about.type === 'rent' ? 'Описание правил аренды студии' : 'Описание студии в разделе о мастерской'
+  
   const fields = [
-    { name: "description", type: "text", placeholder: "Контактные данные", value: description },
+    { name: "description", type: "textarea", placeholder: placeholder, value: description },
   ];
 
   const handleSubmit = async (formData: { [key: string]: string }) => {

@@ -51,7 +51,7 @@ body {
   }
 
   .admin-container {
-    @apply flex flex-col gap-5 p-2 border rounded-md border-black;
+    @apply flex flex-col gap-5 p-4 border rounded-md border-black;
   }
 }
 
@@ -63,6 +63,10 @@ input {
     padding: 4px 4px;
     
     @apply space-x-8;
+}
+
+.fc-event {
+  @apply text-xs
 }
 
 .fc-day {

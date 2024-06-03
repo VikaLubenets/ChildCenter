@@ -2,6 +2,7 @@
 
 import BookingBtn from "@/components/BookingBtn";
 import CTA from "@/components/CTA";
+import Loader from "@/components/Loader/Loader";
 import { AppEvent } from "@/constants/DBTypes";
 import { getEventById } from "@/store/queries/events";
 import Image from 'next/image';
@@ -40,7 +41,7 @@ const EventPage = ({ params }: Props) => {
   }, [params.id, router]);
 
   if (loading) {
-    return <p>Loading...</p>;
+    return <Loader />;
   }
 
   if (!event) {
@@ -69,18 +70,16 @@ const EventPage = ({ params }: Props) => {
       <p className="text-gray-700">{event.description}</p>
       <p><strong>Дата:</strong> {event.date}</p>
       <p><strong>Время:</strong> {event.startTime} - {event.endTime}</p>
-      <p><strong>Каждую неделю:</strong> {event.everyWeek ? "Да" : "Нет"}</p>
       <p><strong>Адрес:</strong> {event.address}</p>
       <p><strong>Цена:</strong> {event.price}</p>
-      <div className="mt-4">
-        {Array.isArray(event.imagesSrc) && event.imagesSrc.length > 0 ? (
-          event.imagesSrc.map((src: string, index: number) => (
-            <Image key={index} src={src} alt={event.title} width={600} height={400} />
-          ))
-        ) : (
-          <Image src={'/images/artOptions/logo.jpg'} alt={'logo'} width={600} height={400} />
-        )}
-      </div>
+      {
+        Array.isArray(event.imagesSrc) && event.imagesSrc.length > 1 && 
+        <div className="mt-4">
+            {event.imagesSrc.map((src: string, index: number) => (
+              <Image key={index} src={src} alt={event.title} width={600} height={400} />
+            ))}
+        </div>
+      }
       <CTA />
     </article>
   );

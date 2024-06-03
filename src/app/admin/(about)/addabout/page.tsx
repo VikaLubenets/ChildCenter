@@ -45,7 +45,7 @@ export default function AddAbout() {
       </select>
       <AdminForm 
         fields={[
-          { name: "description", type: "text", placeholder: "Description", value: "" }
+          { name: "description", type: "textarea", placeholder: "Описание", value: "" }
         ]} 
         onSubmit={handleSubmit} 
       />

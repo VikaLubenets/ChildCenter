@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import Modal from './Modal';
-import { Event } from '@/constants/DBTypes';
+import { AppEvent } from '@/constants/DBTypes';
 import { getEventById, updateEvent } from '@/store/queries/events';
 import CheckIcon from '@heroicons/react/20/solid/CheckIcon';
 import { useRouter } from 'next/navigation';
@@ -19,8 +19,7 @@ interface EditEventModalProps {
 
 const EditEventModal: React.FC<EditEventModalProps> = ({ id, showModal, closeModal, showDeleteModal, handleDeleteModal }) => {
   const router = useRouter();
-  const [loading, setLoading] = useState(true);
-  const [newEvent, setNewEvent] = useState<Event>({
+  const [newEvent, setNewEvent] = useState<AppEvent>({
     title: '',
     description: '',
     date: '',
@@ -40,7 +39,6 @@ const EditEventModal: React.FC<EditEventModalProps> = ({ id, showModal, closeMod
       if (eventData?.event) {
         setNewEvent(eventData.event);
       }
-      setLoading(false);
     };
 
     fetchEvent();
@@ -101,8 +99,6 @@ const EditEventModal: React.FC<EditEventModalProps> = ({ id, showModal, closeMod
 
   return (
     <>
-      {loading && <Loader />}
-      {!newEvent && null}
       {newEvent && id && (
         <>
         <Modal

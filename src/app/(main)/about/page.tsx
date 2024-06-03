@@ -2,6 +2,7 @@
 
 import CTA from "@/components/CTA";
 import { getStudioDescription } from "@/store/queries/about";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import type { About } from '@/constants/DBTypes'
 import Loader from "@/components/Loader/Loader";
@@ -9,16 +10,17 @@ import Loader from "@/components/Loader/Loader";
 const About = () => {
   const [aboutStudio, setAboutStudio] = useState<About>({
     description: '',
-    type: 'studio',
+    type: 'rent',
     _id: ''
   });
   const [loading, setLoading] = useState(true);
+  const router = useRouter();
   
   useEffect(() => {
     const fetchAbout = async () => {
       const aboutResponse = await getStudioDescription();
       if (aboutResponse) {
-        setAboutStudio(aboutResponse.about);
+        setAboutStudio(aboutResponse);
       }
       setLoading(false);
     };

@@ -25,7 +25,7 @@ export default function AdminForm({ fields, onSubmit }: DynamicFormProps) {
 
   const router = useRouter();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
@@ -38,24 +38,38 @@ export default function AdminForm({ fields, onSubmit }: DynamicFormProps) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-5 justify-center items-center m-10">
+    <form onSubmit={handleSubmit} className="flex flex-col gap-5 justify-center items-center m-10 w-[90%] border-2 border-black rounded-md p-10">
       {fields.map((field) => (
-        <input
-          key={field.name}
-          name={field.name}
-          type={field.type}
-          value={formData[field.name]}
-          onChange={handleChange}
-          className="border border-slate-500 px-8 py-2"
-          placeholder={field.placeholder}
-        />
+        <div key={field.name} className="w-full flex flex-col gap-2">
+          <label htmlFor={field.name} className="font-bold">{field.placeholder}</label>
+          {field.type === "textarea" ? (
+            <textarea
+              id={field.name}
+              name={field.name}
+              value={formData[field.name]}
+              onChange={handleChange}
+              className="border border-slate-500 px-5 py-2 w-full h-40"
+              placeholder={field.placeholder}
+            />
+          ) : (
+            <input
+              id={field.name}
+              name={field.name}
+              type={field.type}
+              value={formData[field.name]}
+              onChange={handleChange}
+              className="border border-slate-500 px-5 py-2 w-full"
+              placeholder={field.placeholder}
+            />
+          )}
+        </div>
       ))}
       <button
-        className="bg-green-500 font-bold text-white px-5 py-3 w-fit cursor-pointer"
+        className="btn"
         type="submit"
       >
         Сохранить изменения
       </button>
     </form>
-  );
+  )
 }
