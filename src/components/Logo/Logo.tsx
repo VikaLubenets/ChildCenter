@@ -1,12 +1,11 @@
 import Link from "next/link";
 import Image from 'next/image';
 
-
 const Logo = () => {
   return (
-    <Link href="/">
-      <div className="mt-5 ml-1 mb-4 flex items-center gap-x-3 rounded-md shadow-md">
-        <Image src={"/logo.jpg"} alt={"logo"} width={50} height={50}/>
+    <Link href="/" className="flex items-center justify-center h-full">
+      <div className="flex items-center justify-center gap-x-3 h-full">
+        <Image className="rounded-md shadow-md" src="/logo.jpg" alt="logo" width={50} height={50} />
       </div>
     </Link>
   )
