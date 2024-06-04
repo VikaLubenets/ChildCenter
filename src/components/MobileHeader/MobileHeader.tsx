@@ -28,10 +28,11 @@ const MobileHeader = () => {
               </Offcanvas.Title>
             </Offcanvas.Header>
             <Offcanvas.Body>
-              <Nav className="justify-content-end flex-grow-1 pe-3 gap-5">
+              <Nav className="justify-start items-center">
                 <NavBarItem label="Главная" href={"/"}/>
                 <NavBarItem label="О мастерской" href={"/about"}/>
                 <NavBarItem label="Расписание" href={"/schedule"}/>
+                <NavBarItem label="Мастера" href={"/masters"}/>
                 <NavBarItem label="Контакты" href={"/contacts"}/>
                 <NavBarItem label="Аренда" href={"/rent"}/>
               </Nav>

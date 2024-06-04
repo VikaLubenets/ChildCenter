@@ -12,7 +12,7 @@ const MainLayout = ({children}: Props) => {
     <>
       <Header />
       <MobileHeader />
-      <main className="flex justify-start items-center lg:h-[65vh] h-full w-full">
+      <main className="flex justify-start items-center lg:h-[70vh] h-full w-full">
           <SocialMedia />
           {children}
       </main>

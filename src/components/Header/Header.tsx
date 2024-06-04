@@ -5,7 +5,7 @@ import { NavBarItem } from "./NavBarItem";
 
 export const Header = () => {
   return (
-    <header className='lg:flex h-1/5 w-full px-4 justify-between hidden'>
+    <header className='lg:flex h-1/5 z-10 w-full px-4 justify-between hidden'>
         <Logo />
         <nav className="flex" >
           <ul className="flex gap-4 flex-1 items-center justify-end list-none">
