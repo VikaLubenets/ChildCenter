@@ -20,8 +20,8 @@ export const authConfig: AuthOptions = {
         password: { label: "Пароль", type: "password" }
       },
       authorize: async (credentials) => {
-        const adminLogin = process.env.ADMIN_LOGIN;
-        const adminPassword = process.env.ADMIN_PASSWORD;
+        const adminLogin = process.env.NEXT_PRIVATE_ADMIN_LOGIN;
+        const adminPassword = process.env.NEXT_PRIVATE_ADMIN_PASSWORD;
 
         if (credentials?.username === adminLogin && credentials?.password === adminPassword) {
           return { id: '1', name: 'Admin' };
