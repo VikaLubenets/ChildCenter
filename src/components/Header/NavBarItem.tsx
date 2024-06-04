@@ -13,7 +13,7 @@ export const NavBarItem = ({ label, href }: NavBarItemProps) => {
   const isActive = pathname === href;
 
   return (
-    <li className={`justify-start list-none rounded-md ${
+    <li className={`justify-start list-none rounded-md py-5 px-2 ${
       isActive ? 'text-[#D08D85] pointer-events-none' : 'text-black'
     }`}>
       <Link href={href} className="flex items-center justify-center hover:text-[#D08D85] active:text-green-500">
