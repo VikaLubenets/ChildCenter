@@ -49,7 +49,7 @@ const ScheduleComponent = () => {
     };
 
     fetchEvents();
-  }, [formatEvents]);
+  }, []);
 
   if (loading) {
     return <Loader />;
@@ -101,9 +101,9 @@ const ScheduleComponent = () => {
   }
 
   return (
-    <section className="flex flex-col min-h-screen gap-5 m-10">
-      <div className="grid grid-cols-10">
-        <div className="col-span-8">
+    <section className="flex flex-col min-h-screen gap-5 mt-10">
+      <div className="grid grid-cols-12 mx-4">
+        <div className="col-span-10">
           <FullCalendar
             plugins={[
               dayGridPlugin,
@@ -131,7 +131,7 @@ const ScheduleComponent = () => {
             eventClick={(data) => handleEditModal(data)}
           />
         </div>
-        <div className="ml-8 w-full p-2 mt-16 lg:h-1/2">
+        <div className="m-8 w-[300px] p-2 h-1/2">
           <button onClick={() => setShowModal(true)} className='btn w-max-[100%]'>Создать мероприятие</button>
         </div>
       </div>

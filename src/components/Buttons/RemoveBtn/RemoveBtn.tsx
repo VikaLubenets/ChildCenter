@@ -11,7 +11,7 @@ type RemoveBtnProps = {
 
 const RemoveBtn = ({ id, onRemove, deleteFunction }: RemoveBtnProps) => {
   const handleRemove = async () => {
-    const confirmed = confirm("Are you sure?");
+    const confirmed = confirm("Вы уверены, что хотите удалить эту информацию? Действие нельзя будет отменить");
 
     if (confirmed) {
       const res = await deleteFunction(id);

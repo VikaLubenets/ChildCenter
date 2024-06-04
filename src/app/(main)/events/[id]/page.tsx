@@ -5,6 +5,7 @@ import CTA from "@/components/CTA";
 import Loader from "@/components/Loader/Loader";
 import { AppEvent } from "@/constants/DBTypes";
 import { getEventById } from "@/store/queries/events";
+import { formatDate } from "@/util/formatDate";
 import Image from 'next/image';
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -68,7 +69,7 @@ const EventPage = ({ params }: Props) => {
         <BookingBtn />
       </div>
       <p className="text-gray-700">{event.description}</p>
-      <p><strong>Дата:</strong> {event.date}</p>
+      <p><strong>Дата:</strong> {formatDate(event.date)}</p>
       <p><strong>Время:</strong> {event.startTime} - {event.endTime}</p>
       <p><strong>Адрес:</strong> {event.address}</p>
       <p><strong>Цена:</strong> {event.price}</p>

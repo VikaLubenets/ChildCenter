@@ -6,7 +6,7 @@ const Schedule = () => {
     <article className="article">
       <h2 className="subtitle-header">Расписание занятий</h2>
       <ScheduleComponent />
-      <CTAConnect call='Напишите нам, чтобы записаться на занятие' title='Записаться' />
+      {/* <CTAConnect call='Напишите нам, чтобы записаться на занятие' title='Записаться' /> */}
     </article>
   )
 };

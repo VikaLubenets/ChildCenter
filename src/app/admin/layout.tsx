@@ -10,15 +10,15 @@ type Props = {
 const MainLayout = ({children}: Props) => {
   return (
     <>
-      <header className="lg:text-2xl text-xl font-bold pt-10 px-8 flex justify-between">
+      <header className="lg:text-2xl text-xl font-bold pt-5 px-8 flex justify-between">
         <Link href={"/admin"} className='hover:text-slate-600 active:text-green-500'>
             Страница администратора сайта
         </Link>
         <Link href={"/"} className='hover:text-slate-600 active:text-green-500'>
-            На главную
+            На сайт
         </Link>
       </header>
-      <main className="flex justify-center items-center h-full w-full py-10 px-8">
+      <main className="flex justify-center items-center h-full w-full p-5">
           {children}
       </main>
     </>

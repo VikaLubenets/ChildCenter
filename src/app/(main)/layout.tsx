@@ -1,4 +1,5 @@
 import Header from "@/components/Header";
+import MobileHeader from "@/components/MobileHeader";
 import SocialMedia from "@/components/SocialMedia";
 import React from "react";
 
@@ -10,7 +11,8 @@ const MainLayout = ({children}: Props) => {
   return (
     <>
       <Header />
-      <main className="flex justify-start items-center h-[80vh] w-full">
+      <MobileHeader />
+      <main className="flex justify-start items-center lg:h-[65vh] h-full w-full">
           <SocialMedia />
           {children}
       </main>

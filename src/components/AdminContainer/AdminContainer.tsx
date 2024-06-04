@@ -25,7 +25,7 @@ export const AdminContainer = ({
   return (
     <article className="admin-container">
       <h2 className="lg:text-xl text-lg font-bold py-4">{header}</h2>
-      <div className="flex flex-col lg:flex-row gap-5 lg:text-base text-sm flex-wrap">
+      <div className="flex flex-col lg:flex-row gap-2 lg:text-base text-sm flex-wrap">
         {info && info.length > 0 ? (
           info.map((option) => {
             if (!option || !option._id) {

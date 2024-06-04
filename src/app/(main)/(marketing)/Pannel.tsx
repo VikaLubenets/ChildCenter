@@ -28,10 +28,10 @@ export const Pannel = () => {
   }
 
   return (
-    <section className="flex px-5" style={{ backgroundColor: "rgb(var(--foreground-rgb-marketing-pannel))" }}>
+    <section className="flex lg:flex-row flex-col px-0 w-full lg:gap-0" style={{ backgroundColor: "rgb(var(--foreground-rgb-marketing-pannel))" }}>
       {services && services.map((service, index) => (
         <>
-          <div key={service._id} className="flex flex-col pt-4 gap-[30px] text-white">
+          <div key={service._id} className="flex flex-col pt-3 gap-[30px] text-white">
             <h2 className="lg:text-xl text:lg">{service.title}</h2>
             <p>{service.description}</p>
             <Link href={service.link} className="cursor-pointer w-full flex gap-5 items-center text-black">
@@ -45,7 +45,7 @@ export const Pannel = () => {
               />
             </Link>
           </div>
-          {index === 2 && <Image key={index} src={"/images/marketing/lesson.jpg"} alt={""} width={222} height={208} className='mr-4'/>}
+          {index === 2 && <Image key={index} src={"/images/marketing/lesson.jpg"} alt={""} width={222} height={208} className='mr-4 lg:block hidden'/>}
         </>
         ))
       }

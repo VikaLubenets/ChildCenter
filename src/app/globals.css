@@ -51,7 +51,12 @@ body {
   }
 
   .admin-container {
-    @apply flex flex-col gap-5 p-4 border rounded-md border-black;
+    @apply flex flex-col gap-3 p-4 border rounded-md border-black;
+  }
+
+  .mobile-header{
+    @apply lg:hidden flex justify-between items-center h-[15vh] bg-transparent
+  
   }
 }
 
@@ -66,7 +71,7 @@ input {
 }
 
 .fc-event {
-  @apply text-xs
+  @apply text-xs h-full w-full flex items-start;
 }
 
 .fc-day {
@@ -74,16 +79,23 @@ input {
 }
 
 .fc-scrollgrid-sync-table {
-  @apply w-full;
+  @apply w-full
+}
+
+.fc {
+  @apply w-full h-full
 }
 
 .fc-view {
-  @apply w-full h-full lg:h-3/4 xl:h-2/3 bg-white;
+  @apply w-full h-full 2xl:h-2/3 bg-white;
 }
 
 .fc-h-event {
-  @apply bg-violet-500 border border-violet-600 ;
-  
+  @apply bg-violet-500 border border-violet-600;
+}
+
+.fc-event-title {
+  @apply whitespace-normal overflow-hidden text-ellipsis;
 }
 
 .fc .fc-daygrid-day.fc-day-today {

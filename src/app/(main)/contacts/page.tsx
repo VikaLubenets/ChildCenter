@@ -1,8 +1,6 @@
 'use client'
 
-import CTA from "@/components/CTA";
 import Loader from "@/components/Loader/Loader";
-import SocialMedia from "@/components/SocialMedia";
 import { Contact } from "@/constants/DBTypes";
 import { getContacts } from "@/store/queries/contacts";
 import { useEffect, useState } from "react";
@@ -37,8 +35,6 @@ const Contacts = () => {
         </div>
         )
       })}
-      <h2 className="subtitle-header">Мы в социальных сетях</h2>
-      <SocialMedia row={true} className='w-[90%]'/>
     </article>
   )
 };

@@ -36,7 +36,7 @@ const ScheduleComponent = () => {
     };
 
     fetchEvents();
-  }, [formatEvents]);
+  }, []);
 
   if (loading) {
     return <Loader />;
@@ -88,6 +88,7 @@ const ScheduleComponent = () => {
             events={allEvents as EventSourceInput}
             nowIndicator={true}
             selectable={true}
+            handleWindowResize={true}
             selectMirror={true}
             eventClick={(data) => handleEventClick(data.event.id)}
           />
